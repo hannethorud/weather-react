@@ -1,14 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
+import axios from "axios";
 import "./Weather.css";
 
 export default function Weather() {
+  const [ready, setReady] = useState(false);
+  const [temperature, setTemperature] = useState(null);
+  function handleResponse(response) {
+    console.log(response.data);
+    setTemperature(response.data.main.temperature);
+    setReady(true);
+  }
+
   return (
     <div>
       <body>
         <br />
         <br />
         <br />
-
         <div class="container">
           <form class="d-flex">
             <input
@@ -30,7 +38,7 @@ export default function Weather() {
               <div class="col">
                 <i class="fa-solid fa-sun sun"></i>
               </div>
-              <div class="col todaydegree">24 °C</div>
+              <div class="col todaydegree">{Math.round(temperature)}</div>
               <div class="col todayinfo">
                 Sun <br />
                 Humidity: 70% <br />
